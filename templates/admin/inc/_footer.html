@@ -1,0 +1,10 @@
+{% load i18n %}
+<footer class="main-footer text-sm">
+    <strong>
+        {% if jazzmin_settings.copyright %}
+            {{ jazzmin_settings.copyright }}
+        {% else %}
+            Copyright &copy; {% now "Y" %}
+        {% endif %}
+    </strong>
+</footer>

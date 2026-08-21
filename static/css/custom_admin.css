@@ -1,0 +1,14 @@
+/* 1. Hide Jazzmin version from footer */
+.main-footer .float-right {
+    display: none !important;
+}
+
+/* 2. Hide "Recent actions" panel and make main content full width */
+.content .row > .col-lg-3 {
+    display: none !important;
+}
+
+.content .row > .col-lg-9 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
