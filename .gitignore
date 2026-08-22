@@ -149,6 +149,9 @@ activemq-data/
 
 # Environments
 .env
+*.pem
+*.key
+key_b64.txt
 .envrc
 .venv
 env/

@@ -1,7 +1,29 @@
+# Core Framework & Web Server
 Django==5.0.2
 gunicorn==21.2.0
+
+# Configuration & Database
 django-environ==0.11.2
 psycopg2-binary==2.9.9
+
+# Static & Media File Handling
 Pillow==10.2.0
-django-jazzmin==3.0.1
 whitenoise==6.5.0
+
+# Admin UI & APIs
+django-jazzmin==3.0.1
+djangorestframework==3.15.2
+
+# CORS Headers
+# Required for corsheaders.middleware.CorsMiddleware and CORS_ALLOWED_ORIGINS in settings.
+django-cors-headers==4.3.1
+
+# Authentication & Security
+django-allauth[headless]>=65.19.0
+PyYAML==6.0.2
+PyJWT[cryptography]==2.9.0
+cryptography>=41.0.0,<43.0.0
+
+# Phone Number Handling
+django-phonenumber-field==8.0.0
+phonenumbers==8.13.55
