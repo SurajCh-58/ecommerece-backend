@@ -5,9 +5,9 @@ class ProductSerializer(serializers.ModelSerializer):
     category=serializers.StringRelatedField()
     class Meta:
         model=Product
-        fields=['image','name','description','price','category']
+        fields=['id','image','name','description','price','category']
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model=Category
-        fields=['name']        
+        fields=['id','name']        

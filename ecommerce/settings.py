@@ -49,7 +49,8 @@ INSTALLED_APPS = [
 
     # Local
     'accounts.apps.AccountsConfig',
-    'products'
+    'products',
+    'cart',
 ]
 
 # ==============================================================================
@@ -155,8 +156,6 @@ REST_FRAMEWORK = {
 # Only email login — no username.
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
 
 # 'mandatory' — must verify email before login.
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -215,7 +214,7 @@ else:
 HEADLESS_JWT_ALGORITHM = 'RS256'
 
 # allauth expects plain integers (seconds) for JWT expiry — NOT timedelta.
-HEADLESS_JWT_ACCESS_TOKEN_EXPIRES_IN = 900         # 15 minutes in seconds (int, not timedelta)
+HEADLESS_JWT_ACCESS_TOKEN_EXPIRES_IN = 7200         # 15 minutes in seconds (int, not timedelta)
 HEADLESS_JWT_REFRESH_TOKEN_EXPIRES_IN = 604800     # 7 days in seconds (int, not timedelta)
 HEADLESS_JWT_ROTATE_REFRESH_TOKEN = True
 
