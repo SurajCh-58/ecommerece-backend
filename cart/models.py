@@ -4,7 +4,7 @@ from products.models import Product
 # Create your models here.
 
 class Cart(models.Model):
-    user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='carts')
+    user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='cart')
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
     def __str__(self):
@@ -18,3 +18,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"
+
+    @property
+    def sub_total(self):
+        return self.product.price*self.quantity

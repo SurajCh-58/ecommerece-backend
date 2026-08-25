@@ -1,20 +1,18 @@
 from rest_framework import serializers
-from cart.models import Cart,CartItem
-
-class CartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Cart
-        fields=['id','user']
-        read_only_fields=['user']
+from cart.models import CartItem
     
 class CartItemCreateSerializer(serializers.ModelSerializer):
+    product_name=serializers.CharField(source="product.name",read_only=True)
+    
     class Meta:
         model=CartItem
-        fields=['product','quantity',]
+        fields=['id','product','product_name','quantity','sub_total']
+        read_only_fields=['product_name','sub_total']
 
-class CartItemReadSerializer(serializers.ModelSerializer):
-    cart=serializers.StringRelatedField()
-    product=serializers.StringRelatedField()
+class CartItemUpdateSerializer(serializers.ModelSerializer):
+    product_name=serializers.CharField(source="product.name",read_only=True)
+    
     class Meta:
         model=CartItem
-        fields=['id','cart','product','quantity',]
+        fields=['id','product','product_name','quantity','sub_total']
+        read_only_fields=['product','sub_total']
