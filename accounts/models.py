@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
+from django.conf import settings
 
 class UserManager(BaseUserManager):
     def create_user(self,email,password=None,**extra_fields):
@@ -11,7 +12,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self,email,password=None,**extra_fields):
+    def create_superuser(self,email,password,**extra_fields):
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_superuser',True)
         return self.create_user(email,password,**extra_fields)
@@ -36,3 +37,21 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+class Address(models.Model):
+    class Label(models.TextChoices):
+        HOME='home','Home'
+        OFFICE='office','Office'
+        OTHER='other','Other'
+    user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="addresses")
+    label=models.CharField(max_length=20,choices=Label.choices,default=Label.HOME)
+    state=models.CharField(max_length=100)
+    city=models.CharField(max_length=100)
+    address_line=models.CharField(max_length=100)
+    postal_code=models.CharField(max_length=20)
+    is_default=models.BooleanField(default=False)
+    created_at=models.DateTimeField(auto_now_add=True)
+    updated_at=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.label} {self.city}"

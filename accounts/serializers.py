@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from accounts.models import Profile
+from accounts.models import Profile, Address
 from common.utils import validate_image
 
 User=get_user_model()
@@ -18,3 +18,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=User
         fields=['email','profile']
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Address
+        fields=['id','label','state','city','address_line','postal_code','is_default','created_at','updated_at']
+        read_only_fields=['id','created_at','updated_at']

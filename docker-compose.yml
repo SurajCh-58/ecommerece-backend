@@ -15,10 +15,10 @@ services:
     image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    env_file:
-      - env/.env
     ports:
       - "5432:5432"
+    env_file:
+      - env/.env
 
 volumes:
   postgres_data:

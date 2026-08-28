@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from orders.models import Order, OrderItem, TrackingDetail
+from payment.serializers import PaymentSerializer
+from orders.models import Order, OrderItem
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,17 +9,28 @@ class OrderItemSerializer(serializers.ModelSerializer):
         read_only_fields=['id','product','quantity','unit_price','sub_total']
 
 
-class TrackingDetailSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=TrackingDetail
-        fields=['id','status','location','notes','updated_at']
-        read_only_fields=['id','status','location','notes','updated_at']
-
 class OrderSerializer(serializers.ModelSerializer):
     items=OrderItemSerializer(many=True,read_only=True)
-    tracking_details=TrackingDetailSerializer(many=True,read_only=True)
+    payment=PaymentSerializer(read_only=True)
     class Meta:
         model=Order
 
-        fields=['id','status','total_amount','created_at','updated_at','items','tracking_details']
-        read_only_fields=['id','status','total_amount','created_at','updated_at','tracking_details']
+        fields=['id',
+                'status',
+                'total_amount',
+                'shipping_name',
+                'shipping_phone',
+                'shipping_state',
+                'shipping_city',
+                'shipping_address',
+                'shipping_postal_code',
+                'created_at',
+                'updated_at',
+                'items',
+                'payment']
+        read_only_fields=['id',
+                          'status',
+                          'total_amount',
+                          'created_at',
+                          'updated_at',
+                          'payment']

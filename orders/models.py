@@ -15,6 +15,13 @@ class Order(models.Model):
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='orders')
     status=models.CharField(max_length=12,choices=Status.choices,default=Status.PENDING)
     total_amount=models.DecimalField(max_digits=12,decimal_places=2)
+    quantity=models.IntegerField()
+    shipping_name=models.CharField(max_length=100)
+    shipping_phone=models.CharField(max_length=20)
+    shipping_state=models.CharField(max_length=100)
+    shipping_city=models.CharField(max_length=100)
+    shipping_address=models.CharField(max_length=100)
+    shipping_postal_code=models.CharField(max_length=20)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
@@ -24,7 +31,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='items')
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='order_items')
-    quantity=models.PositiveIntegerField()
+    quantity=models.PositiveIntegerField(default=1)
     unit_price=models.DecimalField(max_digits=12,decimal_places=2)
 
     @property
@@ -33,13 +40,3 @@ class OrderItem(models.Model):
     
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"
-
-class TrackingDetail(models.Model):
-    order=models.ForeignKey(Order,on_delete=models.CASCADE,related_name='tracking_details')
-    status=models.CharField(max_length=12)
-    location=models.CharField(max_length=255,blank=True)
-    notes=models.TextField()
-    updated_at=models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.order.id} x {self.status}"
